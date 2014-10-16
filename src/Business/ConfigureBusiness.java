@@ -14,8 +14,8 @@ public class ConfigureBusiness {
         Business business = Business.getInstance();
         
         Supplier s0 = business.getSupplierDirectory().addNewSupplier();
-        s0.setFirstName("Jiyuan");
-        s0.setLastName("Zhao");
+        s0.setFirstName("ADMIN");
+        s0.setLastName("ADMIN");
         s0.setOrganization("NEU");
         
         UserAccount ua1 = business.getUserAccountDirectory().addNewUserAccount();

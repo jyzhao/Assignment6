@@ -8,11 +8,13 @@ package UserInterface;
 import Business.Business;
 import Business.ConfigureBusiness;
 import Business.CustomerDirectory;
+import Business.MasterOrderCatalog;
 import Business.UserAccountDirectory;
 import Business.SupplierDirectory;
 import Business.UserAccount;
 import UserInterface.AdminWA.AdminWAJPanel;
-import UserInterface.SupplierWA.SupplierWAJPanel;
+import UserInterface.CustomerWA.CustomerWorkAreaJPanel;
+import UserInterface.SupplierWA.SupplierWorkAreaJPanel;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,6 +32,7 @@ public class MainJFrame extends javax.swing.JFrame {
     UserAccountDirectory userAccountDirectory;
     SupplierDirectory supplierDirectory;
     CustomerDirectory customerDirectory;
+    MasterOrderCatalog masterOrderCatalog;
     
     public MainJFrame() {
         initComponents();
@@ -37,6 +40,7 @@ public class MainJFrame extends javax.swing.JFrame {
         userAccountDirectory = business.getUserAccountDirectory();
         supplierDirectory = business.getSupplierDirectory();
         customerDirectory = business.getCustomerDirectory();
+        masterOrderCatalog = business.getMasterOrderCatalog();
     }
 
     /**
@@ -144,14 +148,24 @@ public class MainJFrame extends javax.swing.JFrame {
                 } else if (ua.getRole().equals(UserAccount.SUPPLIER_ROLE)) {
                     //show employee WA
                     userProcessContainer.removeAll();
-                    SupplierWAJPanel ewajp = new SupplierWAJPanel(userProcessContainer,ua);
-                    userProcessContainer.add("EmployeeWAJP", ewajp);
+                    SupplierWorkAreaJPanel swajp = new SupplierWorkAreaJPanel(userProcessContainer,ua);
+                    userProcessContainer.add("SupplierWAJP", swajp);
                     CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                     layout.next(userProcessContainer);
 
                     flag = false;
                     break;
-                }
+                } else if (ua.getRole().equals(UserAccount.CUSTOMER_ROLE)) {
+                    //show employee WA
+                    userProcessContainer.removeAll();
+                    CustomerWorkAreaJPanel cwajp = new CustomerWorkAreaJPanel(userProcessContainer,supplierDirectory,masterOrderCatalog,ua);
+                    userProcessContainer.add("CustomerWAJP", cwajp);
+                    CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                    layout.next(userProcessContainer);
+
+                    flag = false;
+                    break;
+                } 
             }
         }
         if (flag) {

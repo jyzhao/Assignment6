@@ -5,26 +5,31 @@
  */
 package UserInterface.SupplierWA;
 
+import Business.Supplier;
 import Business.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
  *
  * @author zhaojiyuan
  */
-public class SupplierWAJPanel extends javax.swing.JPanel {
+public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form EmployeeWAJPanel
      */
     JPanel upc;
+    Supplier supplier;
     UserAccount ua;
-    public SupplierWAJPanel(JPanel upc,UserAccount ua) {
+
+    public SupplierWorkAreaJPanel(JPanel upc, UserAccount ua) {
         initComponents();
-        
+
         this.upc = upc;
         this.ua = ua;
-        
+        this.supplier = (Supplier) ua.getPerson();
+
         firstNameJTextField.setText(ua.getPerson().getFirstName());
         lastNameJTextField.setText(ua.getPerson().getLastName());
     }
@@ -43,12 +48,30 @@ public class SupplierWAJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         firstNameJTextField = new javax.swing.JTextField();
         lastNameJTextField = new javax.swing.JTextField();
+        managePButton = new javax.swing.JButton();
+        reportButton = new javax.swing.JButton();
 
         jLabel1.setText("Supplier Work Area");
 
         jLabel2.setText("First Name");
 
         jLabel3.setText("Last Name");
+
+        managePButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        managePButton.setText("Manage Product Catalog >>");
+        managePButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managePButtonActionPerformed(evt);
+            }
+        });
+
+        reportButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        reportButton.setText("Review Product Performance >>");
+        reportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -67,7 +90,12 @@ public class SupplierWAJPanel extends javax.swing.JPanel {
                         .addGap(100, 100, 100)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(231, 231, 231)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(reportButton)
+                            .addComponent(managePButton))))
                 .addContainerGap(227, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -83,9 +111,30 @@ public class SupplierWAJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(389, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(managePButton)
+                .addGap(98, 98, 98)
+                .addComponent(reportButton)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    
+    private void managePButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePButtonActionPerformed
+        // TODO add your handling code here:
+     ManageProductCatalogJPanel mpcjp = new ManageProductCatalogJPanel(upc, supplier);
+     upc.add("ManageProductCatalogJPanel",mpcjp);
+     CardLayout layout = (CardLayout)upc.getLayout();
+     layout.next(upc);
+    }//GEN-LAST:event_managePButtonActionPerformed
+
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+        // TODO add your handling code here:
+     ProductReportJPanel prjp = new ProductReportJPanel(upc, supplier);
+     upc.add("ProductReportJPanelSupplier", prjp);
+     CardLayout layout = (CardLayout)upc.getLayout();
+     layout.next(upc);
+    }//GEN-LAST:event_reportButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -94,5 +143,7 @@ public class SupplierWAJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField lastNameJTextField;
+    private javax.swing.JButton managePButton;
+    private javax.swing.JButton reportButton;
     // End of variables declaration//GEN-END:variables
 }

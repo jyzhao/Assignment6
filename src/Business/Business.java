@@ -10,19 +10,21 @@ package Business;
  * @author zhaojiyuan
  */
 public class Business {
-    
+
     public static Business business;
-    
-    UserAccountDirectory userAccountDirectory;
-    SupplierDirectory supplierDirectory;
-    CustomerDirectory customerDirectory;
-    
+
+    private UserAccountDirectory userAccountDirectory;
+    private SupplierDirectory supplierDirectory;
+    private CustomerDirectory customerDirectory;
+    private MasterOrderCatalog masterOrderCatalog;
+
     private Business() {
         userAccountDirectory = new UserAccountDirectory();
         supplierDirectory = new SupplierDirectory();
         customerDirectory = new CustomerDirectory();
+        masterOrderCatalog = new MasterOrderCatalog();
     }
-    
+
     public static Business getInstance() {
         if (business == null) {
             business = new Business();
@@ -53,6 +55,14 @@ public class Business {
     public void setCustomerDirectory(CustomerDirectory customerDirectory) {
         this.customerDirectory = customerDirectory;
     }
-    
+
+    public MasterOrderCatalog getMasterOrderCatalog() {
+        return masterOrderCatalog;
+    }
+
+    public void setMasterOrderCatalog(MasterOrderCatalog masterOrderCatalog) {
+        this.masterOrderCatalog = masterOrderCatalog;
+    }
+
     
 }

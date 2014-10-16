@@ -32,4 +32,17 @@ public class SupplierDirectory {
         this.supplierList.add(supplier);
         return supplier;
     }
+    
+    public void removeSupplier(Supplier s) {
+        supplierList.remove(s);
+    }
+    
+    public Supplier searchSupplier(String keyWord) {
+        for(Supplier s : supplierList) {
+            if(keyWord.equals(s.getFirstName())) {
+                return s;
+            }
+        }
+        return null;
+    }
 }
